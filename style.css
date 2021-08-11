@@ -47,3 +47,22 @@ body {
   background-color: #1f3177;
 }
 /* #endregion */
+
+.diceroll div {
+  margin: 10px;
+}
+.diceroll > .title {
+  font-size: 32px;
+  color: #1f3177;
+  font-family: 'Rubik', sans-serif;
+  text-align: center;
+}
+.dice {
+  width: 50px;
+  height: 50px;
+  background-color: #172456;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
