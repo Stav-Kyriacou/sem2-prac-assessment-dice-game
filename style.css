@@ -66,3 +66,10 @@ body {
   align-items: center;
   justify-content: center;
 }
+.summary {
+  display: block;
+}
+.summary span {
+  display: block;
+  margin-top: 10px;
+}

@@ -1,5 +1,6 @@
 // Import stylesheets
 import './style.css';
+import { Colours } from './models/Colours.enum'
 
 // #region tic tac toe
 
@@ -170,3 +171,24 @@ function aiMove() {
 init();
 
 // #endregion
+
+
+const colourSelect: HTMLSelectElement = document.getElementById('colour-slt') as HTMLSelectElement;
+
+startDiceGame();
+
+function startDiceGame () {
+  console.log("start dice game");
+
+  //populate colour dropdown list
+  let count = 0;
+  for (let c in Colours) {
+    if (isNaN(Number(c))) {
+      let newOption: HTMLOptionElement = document.createElement('option');
+      newOption.innerHTML = c;
+      newOption.value = count.toString();
+      count++;
+      colourSelect.add(newOption);
+    }
+  }
+}
