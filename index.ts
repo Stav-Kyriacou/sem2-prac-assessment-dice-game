@@ -181,7 +181,7 @@ const colourSeelectBtn: HTMLElement = document.getElementById(
 );
 const rollBtn: HTMLElement = document.getElementById('roll-btn');
 const currentPlayer: HTMLElement = document.getElementById('currentPlayer');
-const scores: HTMLElement = document.getElementById('scores');
+const score: HTMLElement = document.getElementById('scores');
 const dice: HTMLElement = document.getElementById('dice');
 
 let isP1Turn: boolean = true;
@@ -204,10 +204,6 @@ function startDiceGame() {
       count++;
       colourSelect.add(newOption);
     }
-  }
-
-  if (isP1Turn) {
-    currentPlayer.innerHTML = "Player 1's Turn";
   }
 }
 
@@ -233,14 +229,22 @@ function roll() {
   }
 
   if (isP1Turn) {
+    p1.addToScore(rollDice(6));
     changeTurn();
   } else {
+    p2.addToScore(rollDice(6));
     changeTurn();
   }
 }
 
 function rollDice(sides: number) {
-  return 0;
+  let rand = Math.floor(Math.random() * sides) + 1;
+  dice.innerHTML = rand.toString();
+  return rand;
+}
+
+function updateScore() {
+  score.innerHTML = 'Player One: ' + p1.score + '  |  Player Two: ' + p2.score;
 }
 
 function changeTurn() {
@@ -251,5 +255,17 @@ function changeTurn() {
   } else {
     dice.style.backgroundColor = p2.colour;
     currentPlayer.innerHTML = "Player 2's Turn";
+  }
+  updateScore();
+
+  //added very short delay before checking win because alert would appear before updating score in html
+  setTimeout(checkWin, 1);
+}
+
+function checkWin() {
+  if (p1.score === 20) {
+    alert('Player 1 wins!');
+  } else if (p2.score === 20) {
+    alert('Player 2 wins!');
   }
 }
