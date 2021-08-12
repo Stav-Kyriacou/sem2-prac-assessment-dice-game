@@ -1,7 +1,7 @@
 export enum Colours {
-  Red,
-  Blue,
-  Green,
-  Purple,
-  Orange
+  Red = "Red",
+  Blue = "Blue",
+  Green = "Green",
+  Purple = "Purple",
+  Orange = "Orange"
 }

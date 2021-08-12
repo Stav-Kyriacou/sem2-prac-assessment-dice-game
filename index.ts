@@ -1,6 +1,7 @@
 // Import stylesheets
 import './style.css';
-import { Colours } from './models/Colours.enum'
+import { Colours } from './models/Colours.enum';
+import { Player } from './models/Player';
 
 // #region tic tac toe
 
@@ -172,14 +173,27 @@ init();
 
 // #endregion
 
+const colourSelect: HTMLSelectElement = document.getElementById(
+  'colour-slt'
+) as HTMLSelectElement;
+const colourSeelectBtn: HTMLElement = document.getElementById(
+  'colourSelect-btn'
+);
+const rollBtn: HTMLElement = document.getElementById('roll-btn');
+const currentPlayer: HTMLElement = document.getElementById('currentPlayer');
+const scores: HTMLElement = document.getElementById('scores');
+const dice: HTMLElement = document.getElementById('dice');
 
-const colourSelect: HTMLSelectElement = document.getElementById('colour-slt') as HTMLSelectElement;
+let isP1Turn: boolean = true;
+let p1: Player = new Player();
+let p2: Player = new Player();
+
+colourSeelectBtn.addEventListener('click', selectColour);
+rollBtn.addEventListener('click', roll);
 
 startDiceGame();
 
-function startDiceGame () {
-  console.log("start dice game");
-
+function startDiceGame() {
   //populate colour dropdown list
   let count = 0;
   for (let c in Colours) {
@@ -190,5 +204,52 @@ function startDiceGame () {
       count++;
       colourSelect.add(newOption);
     }
+  }
+
+  if (isP1Turn) {
+    currentPlayer.innerHTML = "Player 1's Turn";
+  }
+}
+
+function selectColour() {
+  if (isP1Turn && p1.colour == null) {
+    p1.colour =
+      Colours[colourSelect.options[colourSelect.selectedIndex].innerHTML];
+    changeTurn();
+  } else if (!isP1Turn && p2.colour == null) {
+    p2.colour =
+      Colours[colourSelect.options[colourSelect.selectedIndex].innerHTML];
+    changeTurn();
+  }
+}
+
+function roll() {
+  if (isP1Turn && p1.colour == null) {
+    alert('Player 1, please select a colour first');
+    return;
+  } else if (!isP1Turn && p2.colour == null) {
+    alert('Player 2, please select a colour first');
+    return;
+  }
+
+  if (isP1Turn) {
+    changeTurn();
+  } else {
+    changeTurn();
+  }
+}
+
+function rollDice(sides: number) {
+  return 0;
+}
+
+function changeTurn() {
+  isP1Turn = !isP1Turn;
+  if (isP1Turn) {
+    dice.style.backgroundColor = p1.colour;
+    currentPlayer.innerHTML = "Player 1's Turn";
+  } else {
+    dice.style.backgroundColor = p2.colour;
+    currentPlayer.innerHTML = "Player 2's Turn";
   }
 }

@@ -4,9 +4,8 @@ export class Player {
   score: number;
   colour: Colours;
 
-  constructor(colour: Colours) {
+  constructor() {
     this.score = 0;
-    this.colour = colour;
   }
 
   addToScore(score: number) {
