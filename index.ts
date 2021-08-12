@@ -208,6 +208,7 @@ function startDiceGame() {
 }
 
 function selectColour() {
+  //allow current player to select their colour
   if (isP1Turn && p1.colour == null) {
     p1.colour =
       Colours[colourSelect.options[colourSelect.selectedIndex].innerHTML];
@@ -220,6 +221,8 @@ function selectColour() {
 }
 
 function roll() {
+  //if the player hasnt chosen a colour, ask them to
+  //return out of method so the turn doesnt change untill both player have a colour
   if (isP1Turn && p1.colour == null) {
     alert('Player 1, please select a colour first');
     return;
@@ -230,14 +233,15 @@ function roll() {
 
   if (isP1Turn) {
     p1.addToScore(rollDice(6));
-    changeTurn();
   } else {
     p2.addToScore(rollDice(6));
-    changeTurn();
   }
+  changeTurn();
 }
 
 function rollDice(sides: number) {
+  //generate random number from 1 to the number of sides
+  //change the number on the dice to the number rolled
   let rand = Math.floor(Math.random() * sides) + 1;
   dice.innerHTML = rand.toString();
   return rand;
@@ -248,8 +252,11 @@ function updateScore() {
 }
 
 function changeTurn() {
+  //swap turn player
   isP1Turn = !isP1Turn;
+
   if (isP1Turn) {
+    //change colour of dice and turn text
     dice.style.backgroundColor = p1.colour;
     currentPlayer.innerHTML = "Player 1's Turn";
   } else {
@@ -259,10 +266,11 @@ function changeTurn() {
   updateScore();
 
   //added very short delay before checking win because alert would appear before updating score in html
-  setTimeout(checkWin, 1);
+  setTimeout(checkWin, 10);
 }
 
 function checkWin() {
+  //check if either score is 20
   if (p1.score === 20) {
     alert('Player 1 wins!');
   } else if (p2.score === 20) {
