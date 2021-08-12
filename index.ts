@@ -2,6 +2,8 @@
 import './style.css';
 import { Colours } from './models/Colours.enum';
 import { Player } from './models/Player';
+import { Sides } from './models/Sides.enum';
+import { Die } from './models/Die';
 
 // #region tic tac toe
 
@@ -277,3 +279,7 @@ function checkWin() {
     alert('Player 2 wins!');
   }
 }
+
+let d1: Die = new Die();
+d1.numSides = Sides['Four'];
+console.log(d1.roll());
